@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-		<meta charset="UTF-8"/>
-		<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-		<title>To Do List</title>
-		<link rel="stylesheet" href="style/todo.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet"/> <script src="script/todo.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>To Do List</title>
+  <link rel="stylesheet" href="style/todo.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet" />
+  <script type="module" src="script/todo.js" defer></script>
 </head>
 
-<body>						
-			<div class="main container">			
-			 	<fieldset>
-			 		<legend>To Do List</legend>
-						<ul>
-						<li>Laundry</li>	
-						<li>Take Buzo to walk</li>	
-						<li>Code Code Code</li>
-						</ul>	
-						</fieldset>
-						<div id="circleAddBtn" data-addBtn="#newTaskContainer">+</div>
-						
-			<!-- Add new task container -->
-				<div class="newtask-Container" id="newTaskContainer">
-						<div class="float-add-window">
-										<div id="windowCloseBtn">×</div>
-										<h3>Add New Task</h3>
-										<input type="text" placeholder="Type Here..." id="input" required>
-										<button>Add Task</button>
-						</div>		
-				</div><!-- new Task container -->
-				
-				<!-- Dark and Light Mode section -->
-						<div class="toggle cont">
-										<input type="checkbox" class="checkbox" id="checkbox"/>
-										<label id="switch" for="checkbox">
-														<div id="ball"></div>
-										</label>	
-						</div><!-- toggle cont -->
-				</div><!-- main container -->	
+<body>
+  <div class="main container">
+    <fieldset>
+      <legend>To Do List</legend>
+      <ul>
+        <li>Laundry</li>
+        <li>Take Buzo to walk</li>
+        <li>Code Code Code</li>
+      </ul>
+    </fieldset>
+    <div id="addTaskBtn">+</div>
+
+    <!-- Add new task container -->
+    <div class="newtask-Container" id="newTaskContainer">
+      <div class="float-add-window">
+        <div id="crossBtn">×</div>
+        <h3>Add New Task</h3>
+        <input type="text" placeholder="Type Here..." id="input" required>
+        <button>Add Task</button>
+      </div>
+    </div><!-- new Task container -->
+
+    <!-- Dark and Light Mode section -->
+    <div class="toggle cont">
+      <input type="checkbox" class="checkbox" id="checkbox" />
+      <label id="switch" for="checkbox">
+        <div id="ball"></div>
+      </label>
+    </div><!-- toggle cont -->
+  </div><!-- main container -->
 </body>
+
 </html>
