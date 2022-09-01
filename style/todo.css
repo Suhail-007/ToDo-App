@@ -63,8 +63,8 @@ body {
 
 fieldset {
   border: .2vw solid var(--legend-font-color);
-  border-radius: .5vw;
-  min-height: 0%;
+  border-radius: 0.4rem;
+  min-height: 30%;
   max-height: 50%;
   overflow: auto;
   transition: border 300ms ease-in-out;
@@ -106,15 +106,15 @@ ul li:nth-child(odd) {
   transition: background 300ms ease-in-out;
 }
 
+ul li:nth-child(even) {
+  background: var(--evenchild-color);
+  transition: background 300ms ease-in-out;
+}
+
 ul li:hover {
   background: #158cff;
   color: var(--legend-font-color);
   transition: color 300ms ease-in-out;
-}
-
-ul li:nth-child(even) {
-  background: var(--evenchild-color);
-  transition: background 300ms ease-in-out;
 }
 
 ul li:nth-child(even):hover {
@@ -293,14 +293,15 @@ ul li,
   right: 0;
   color: var(--font-color);
   font-size: 5vw;
-  padding: 1.5vw 4vw 1.5vw 4vw;
+  padding : 0.75rem 2rem;
   font-weight: lighter;
+  transition: all 300ms ease-in-out;
 }
 
 .deleteTask:hover,
 .deleteTask:focus {
   color: red;
-  background: white;
+  background: whitesmoke;
 }
 
 ul li.checked {

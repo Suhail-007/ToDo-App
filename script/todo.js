@@ -1,17 +1,26 @@
-import { toggleClass } from './helper.js'
+import { toggleClass, createDeleteBtn, deleteItem } from './helper.js'
 
 class App {
   //Declare variables 
   #body = document.querySelector("body");
   #ballBtn = document.querySelector("#ball");
+  #button = document.querySelector('[data-addBtn]');
   #addTaskBtn = document.querySelector("#addTaskBtn");
   #newTaskContainer = document.querySelector("#newTaskContainer");
   #crossBtn = document.querySelector("#crossBtn");
+  #ulElem = document.querySelector("ul");
   #window = window;
   constructor() {
     this.#ballBtn.addEventListener("click", this.#toggleMode.bind(this));
     this.#addTaskBtn.addEventListener("click", this.#openAddTask.bind(this));
     this.#crossBtn.addEventListener("click", this.#closeAddTask.bind(this));
+    this.#button.addEventListener('click', this.#addNewTask.bind(this));
+    this.#window.addEventListener('click', this.#closeAddTaskWindow.bind(this));
+
+    //firing event as soon as script loads
+    this.#addDeleteBtn();
+    this.#deleteListItem();
+    this.#checkTask()
   }
 
   // light/dark mode toggle
@@ -30,87 +39,52 @@ class App {
     toggleClass('remove', this.#newTaskContainer, 'showContainer');
   }
 
-
-
-
-}
-
-const todoApp = new App()
-
-
-//Adding Close class to every list item
-
-let myNodeList = document.getElementsByTagName("li");
-
-for (let i = 0; i < myNodeList.length; i++) {
-  let child = document.createElement("DIV");
-  let txt = document.createTextNode("\u00D7");
-  child.className = "deleteTask";
-  child.appendChild(txt);
-  myNodeList[i].appendChild(child);
-}
-
-
-// Click on a close button to hide the current list item 
-/* Now when we have created a div with class name close we can select that div now and use that to close the list item */
-
-let hide = document.getElementsByClassName("deleteTask");
-for (let i = 0; i < hide.length; i++) {
-  hide[i].onclick = function() {
-    var parent = this.parentElement;
-    parent.style.display = "none";
+  //add delete btn to present todo items
+  #addDeleteBtn() {
+    //Select all list items
+    const liElems = document.getElementsByTagName("li");
+    const liArr = Array.from(liElems);
+    liArr.forEach(li => createDeleteBtn(li, 'deleteTask'))
   }
-}
 
-
-/* Now We will add checked class so user can tick completed tasks */
-let list = document.querySelector("ul");
-list.addEventListener("click", function(list) {
-  if (list.target.tagName === "LI") {
-    list.target.classList.toggle("checked");
+  //add delete btn to present todo items
+  #deleteListItem() {
+    const deleteBtns = document.getElementsByClassName("deleteTask");
+    const btnsArr = Array.from(deleteBtns);
+    btnsArr.forEach(btn => {
+      btn.addEventListener('click', deleteItem);
+    });
   }
-});
 
-/* Now take the value from input element and make it displays in the ul and add a function which will add the task in the ul when user click on the button */
-
-document.querySelector("button").addEventListener("click", function newElement() {
-
-  let li = document.createElement("LI");
-
-  let getInputValue = document.querySelector("input").value;
-
-  let assignLi = document.createTextNode(getInputValue);
-
-  li.appendChild(assignLi);
-
-  if (getInputValue === "") {
-    alert("You must write something first!")
-  } else {
-    list.appendChild(li);
-
-    //This will close the Task Container div
-    document.querySelector("#newTaskContainer").style.display = "none";
+  #checkTask() {
+    this.#ulElem.addEventListener('click', (e) => {
+      if (e.target.tagName === "LI") {
+        e.target.classList.toggle("checked");
+      }
+    })
   }
-  document.querySelector("input").value = "";
 
-  // this will add close buttons and checked class to the added lists
-  let child = document.createElement("DIV");
-  let txt = document.createTextNode("\u00D7");
-  child.className = "close";
-  child.appendChild(txt);
-  li.appendChild(child);
+  #addNewTask() {
+    const li = document.createElement("LI");
+    const getInputValue = document.querySelector("input");
 
-  for (var i = 0; i < hide.length; i++) {
-    hide[i].onclick = function() {
-      var parent = this.parentElement;
-      parent.style.display = "none";
+    li.textContent = getInputValue.value;
+
+    if (getInputValue.value === '') alert("You must write something first!");
+    else {
+      this.#ulElem.appendChild(li);
+      this.#newTaskContainer.style.display = 'none';
+      getInputValue.value = '';
+      createDeleteBtn(li, 'deleteTask');
+      this.#deleteListItem()
     }
   }
-});
-
-/* TO CLOSE THE ADD NEW TASK WINDOW */
-window.onclick = function() {
-  if (event.target === document.querySelector("#newTaskContainer")) {
-    document.querySelector("#newTaskContainer").classList.remove('showContainer');
+  
+  #closeAddTaskWindow(e) {
+    if (e.target === this.#newTaskContainer) {
+    this.#newTaskContainer.classList.remove('showContainer');
   }
-};
+  }
+}
+
+const todoApp = new App();

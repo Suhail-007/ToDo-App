@@ -13,3 +13,16 @@ export function toggleClass(type, elem, className) {
       return;
   }
 }
+
+export function createDeleteBtn(parentElem, className) {
+  let child = document.createElement("DIV");
+  let txt = document.createTextNode("\u00D7");
+  child.className = `${className}`;
+  child.appendChild(txt);
+  parentElem.appendChild(child);
+}
+
+export function deleteItem(e) {
+  const parent = e.target.parentElement;
+  parent.style.display = 'none';
+}
